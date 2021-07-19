@@ -1,7 +1,8 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
 const fs = require ("fs");
-const generateMarkdown = require("./utils/generateMarkdown")
+const generateMarkdown = require("./utils/generateMarkdown");
+const { type } = require("os");
 
 // TODO: Create an array of questions for user input
 const questions = () => {
@@ -25,32 +26,52 @@ const questions = () => {
             name: "description",
             message: "Please describe your project (Required)",
             validate: descriptionInput => {
-                (descriptionInput) {
+               if (descriptionInput) {
                     return true;
                 } else {
                     console.log("You must enter a project description.");
                     return false;
                 }
             }
-            },
+        },
     {
-        type: 'rawlist',
-        name: 'lisence',
-        message: 'Which license does your project need?',
-        choices: ['Apache License 2.0', 'GNU GPLv3', 'MIT', 'ISC License', 'None']
-        validate: license => {
-            if (license) {
-                return true;
-            } else if (!license){
-                console.log('Please enter required information');
-                return false;
-            }
-        }
+        type: "input",
+        name: "lisence",
+        message: "What lisence are you using?",
     },
-    ];
+    {
+
+    type: "input",
+    name: "githubLink",
+    message: "Enter your Github profile. (Optional)",
+},
+{
+    type: "input",
+    name: "email",
+    message: "Please enter your email address. (Required)",
+    validate: emailInput => {
+        if (emailInput) {
+            return true;
+        } else {
+            console.log("You must enter your email address!")
+        }
+    }
+}
+])
+};
 
 // TODO: Create a function to write README file
 // function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, error => {
+        if (error) {
+            return console.log(error);
+        } else {
+            console.log("Your README has been created! Open ReadMe.md!");
+        }
+    })
+};
+
 
 // TODO: Create a function to initialize app
 function init() {
