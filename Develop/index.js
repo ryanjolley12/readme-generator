@@ -1,4 +1,6 @@
 // packages needed for this application: fs and inquirer
+// worked on index questions in study group with Ani, Shane, and Dana
+
 const fs = require("fs");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown")
@@ -31,7 +33,7 @@ var questionsPrompt = () => {
                 if (descriptionInput) {
                     return true;
                 } else {
-                    console.log("You must enter a brief description of your project.");
+                    console.log("This is required. Enter description.");
                     return false;
                 }
             }
@@ -44,7 +46,7 @@ var questionsPrompt = () => {
         {
             type: "input",
             name: "installation",
-            message: "What is the installation process, if any, for your project? (Optional)"
+            message: "What is the installation process for your project? (Optional)"
         },
         {
             type: "input",
